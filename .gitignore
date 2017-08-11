@@ -5,3 +5,4 @@ pip-selfcheck.json
 sermonconvert.egg-info/
 **/__pycache__/
 **/*.pyc
+sermonconvert/qt/gen_*.py
