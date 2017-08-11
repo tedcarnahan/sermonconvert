@@ -5,14 +5,14 @@ import os
 import sys
 import mainwindow
 
-class SermonConvertApp(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
+class SCMainWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
     def __init__(self, parent=None):
-        super(SermonConvertApp, self).__init__(parent)
+        super(scMainWindow, self).__init__(parent)
         self.setupUi()
         self.filename = ""
 
     def setupUi(self):
-        super(SermonConvertApp, self).setupUi(self)
+        super(scMainWindow, self).setupUi(self)
         self.chooseFileButton.clicked.connect(self.chooseFileDialog)
         self.convertButton.clicked.connect(self.convertFile)
 
@@ -51,7 +51,7 @@ class SermonConvertApp(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    window = SermonConvertApp()
+    window = MainWindow()
     window.show()
     app.exec_()
 
