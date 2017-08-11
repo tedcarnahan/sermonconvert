@@ -1,0 +1,5 @@
+.Python
+scpy/
+pip-selfcheck.json
+
+sermonconvert.egg-info/
