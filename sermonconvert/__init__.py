@@ -1,8 +1,9 @@
-def main():
+from PyQt5 import QtWidgets
+import sys
+
+if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
+    window = sermonconvert.ui.MainWindow()
     window.show()
     app.exec_()
 
-if __name__ == '__main__':
-    main()
