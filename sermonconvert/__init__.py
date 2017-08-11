@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 def main():
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
