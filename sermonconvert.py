@@ -1,4 +1,4 @@
-#!/usr/local/bin/python2
+#!/usr/bin/env python
 
 from PyQt5 import QtWidgets
 import sys
