@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from PyQt5 import QtWidgets, QtCore
 import os
 import sys
@@ -48,13 +46,4 @@ class SCMainWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             '-pix_fmt', 'yuv420p',
             self.filename + '.output.mp4'
         ])
-
-def main():
-    app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    app.exec_()
-
-if __name__ == '__main__':
-    main()
 
