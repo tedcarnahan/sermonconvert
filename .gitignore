@@ -1,5 +1,5 @@
 .Python
-sermonconvert.venv/
+sc-venv/
 pip-selfcheck.json
 
 sermonconvert.egg-info/
