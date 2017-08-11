@@ -6,3 +6,4 @@ sermonconvert.egg-info/
 **/__pycache__/
 **/*.pyc
 sermonconvert/qt/gen_*.py
+ffmpeg-*.log
