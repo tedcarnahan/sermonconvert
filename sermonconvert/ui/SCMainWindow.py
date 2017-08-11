@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
+from sermonconvert.qt import mainwindow
 import os
 import sys
-import mainwindow
 
 class SCMainWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
     def __init__(self, parent=None):
