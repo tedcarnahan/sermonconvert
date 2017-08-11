@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import sermonconvert.controller.App
+from sermonconvert.controller.App import App
 import sys
 
 if __name__ == '__main__':
-    app = sermonconvert.controller.App
+    app = App(sys.argv)
     sys.exit(app.exec_())

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-pyuic5 mainwindow.ui > mainwindow.py
+pyuic5 MainWindow.ui > gen_MainWindow.py

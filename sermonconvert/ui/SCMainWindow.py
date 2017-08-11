@@ -1,16 +1,16 @@
 from PyQt5 import QtWidgets, QtCore
-from sermonconvert.qt import mainwindow
+from sermonconvert.qt.gen_MainWindow import Ui_MainWindow
 import os
 import sys
 
-class SCMainWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
+class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
-        super(scMainWindow, self).__init__(parent)
+        super(SCMainWindow, self).__init__(parent)
         self.setupUi()
         self.filename = ""
 
     def setupUi(self):
-        super(scMainWindow, self).setupUi(self)
+        super(SCMainWindow, self).setupUi(self)
         self.chooseFileButton.clicked.connect(self.chooseFileDialog)
         self.convertButton.clicked.connect(self.convertFile)
 
