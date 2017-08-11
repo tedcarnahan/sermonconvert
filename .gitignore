@@ -1,7 +1,9 @@
 .Python
-sermonconvert.venv/
+sc-venv/
 pip-selfcheck.json
 
 sermonconvert.egg-info/
-__pycache__/
-*.pyc
+**/__pycache__/
+**/*.pyc
+sermonconvert/qt/gen_*.py
+ffmpeg-*.log
