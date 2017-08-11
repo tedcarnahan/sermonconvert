@@ -3,3 +3,4 @@ sermonconvert.venv/
 pip-selfcheck.json
 
 sermonconvert.egg-info/
+__pycache__/
