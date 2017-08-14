@@ -33,17 +33,42 @@ class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         )[0]
         self.labelFileName.setText(self.filename);
 
+    def starttime(self):
+        return self.timeStart.time().toString('hh:mm:ss')
+
+    def duration(self):
+        return self.timeDuration.time().toString('hh:mm:ss')
+
+    def sermondate(self):
+        return self.sermonDate.date().toString('yyyy-MM-dd')
+
+    def seriesName(self):
+        return self.seriesTitle.text()
+
+    def seqNum(self):
+        return self.sequenceNumber.value()
+
+    def sermonName(self):
+        return self.sermonTitle.text()
+
+    def outputfilename(self):
+        return "%s %s %d - %s.mp4" % (
+            self.sermondate(), self.seriesName(),
+            self.seqNum(), self.sermonName())
+
     def convertFile(self):
-        print("convert file")
+        print(self.outputfilename())
+
         self.process.setProcessChannelMode(QtCore.QProcess.MergedChannels)
         self.process.start('/usr/local/bin/ffmpeg', [
             '-report',
             '-fflags', '+genpts',
+            '-ss', self.starttime(),
             '-i', self.filename,
-            '-to', '00:10:00',
+            '-to', self.duration(),
             '-c:v', 'libx264', '-preset', 'slow', '-crf', '18',
             '-c:a', 'copy',
             '-pix_fmt', 'yuv420p',
-            self.filename + '.output.mp4'
+            self.outputfilename()
         ])
 
