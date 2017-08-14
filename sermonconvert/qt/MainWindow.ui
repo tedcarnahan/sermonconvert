@@ -334,7 +334,7 @@
            <number>0</number>
           </property>
           <property name="invertedAppearance">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>

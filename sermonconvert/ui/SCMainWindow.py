@@ -2,6 +2,8 @@ from PyQt5 import QtWidgets, QtCore
 from sermonconvert.qt.gen_MainWindow import Ui_MainWindow
 import os
 import sys
+import re
+import math
 
 class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -20,10 +22,29 @@ class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.process.finished.connect( lambda: self.convertButton.setEnabled(True) )
 
     def dataReady(self):
+        text_from_process = str(self.process.readAll(), 'utf-8')
+
+        # Update progress bar
+        self.updateProgress(text_from_process)
+
+        # Add to the log window
         cursor = self.outputWindow.textCursor()
         cursor.movePosition(cursor.End)
-        cursor.insertText(str(self.process.readAll(), 'utf-8'))
+        cursor.insertText(text_from_process)
         self.outputWindow.ensureCursorVisible()
+
+    def timecode_to_secs(self, time_str):
+        m = re.search("(\d\d):(\d\d):(\d\d\.?\d?\d?)", time_str)
+        return int(m[1])*3600 + int(m[2])*60 + math.ceil(float(m[3]))
+
+    def updateProgress(self, logtext):
+        m = re.search("time=(\d\d:\d\d:\d\d\.\d\d)", logtext)
+        if m:
+            curtime_s = self.timecode_to_secs(m[1])
+            durtime_s = self.timecode_to_secs(self.duration())
+            percent = curtime_s / durtime_s * 100
+            self.operationProgress.setValue(int(percent))
+            self.overallProgress.setValue(int(percent))
         
     def chooseFileDialog(self):
         self.filename = QtWidgets.QFileDialog.getOpenFileName(
