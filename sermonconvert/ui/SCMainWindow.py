@@ -17,6 +17,11 @@ class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.chooseFileButton.clicked.connect(self.chooseFileDialog)
         self.convertButton.clicked.connect(self.convertFile)
 
+        self.sermonDate.dateChanged.connect( self.derive_outputfilename )
+        self.seriesTitle.textEdited.connect( self.derive_outputfilename )
+        self.sequenceNumber.valueChanged.connect( self.derive_outputfilename )
+        self.sermonTitle.textEdited.connect( self.derive_outputfilename )
+
     def chooseFileDialog(self):
         self.filename = QtWidgets.QFileDialog.getOpenFileName(
             caption = "Choose source video file",
@@ -43,10 +48,14 @@ class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def sermonName(self):
         return self.sermonTitle.text()
 
-    def outputfilename(self):
-        return "%s %s %d - %s.mp4" % (
+    def derive_outputfilename(self):
+        self.outputFile.setText( "%s %s %d - %s.mp4" % (
             self.sermondate(), self.seriesName(),
             self.seqNum(), self.sermonName())
+        )
+
+    def outputfilename(self):
+        return self.outputFile.text()
 
     def updateProgress(self, text):
         # Update progress bar
