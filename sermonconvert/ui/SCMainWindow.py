@@ -65,25 +65,25 @@ class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.overallProgress.setValue(self.process.percent)
 
         # Add to the log window
-        cursor = self.outputWindow.textCursor()
-        cursor.movePosition(cursor.End)
-        cursor.insertText(text)
-        self.outputWindow.ensureCursorVisible()
+        # cursor = self.outputWindow.textCursor()
+        # cursor.movePosition(cursor.End)
+        # cursor.insertText(text)
+        # self.outputWindow.ensureCursorVisible()
 
         # Calculate ETA
         elapsed = time.time() - self.clocktime_begin
         if elapsed and self.process.percent:
             remaining = (100 - self.process.percent) * (elapsed / self.process.percent)
-            self.operationName.setText('Converting video (about ' + secs_to_timecode(remaining) + ' remaining)')
+            self.statusBar.showMessage('Converting video (about ' + secs_to_timecode(remaining) + ' remaining)')
 
     def startProcess(self):
         self.clocktime_begin = time.time()
         self.convertButton.setEnabled(False)
-        self.operationName.setText('Converting video')
+        self.statusBar.showMessage('Converting video')
 
     def endProcess(self):
         self.convertButton.setEnabled(True)
-        self.operationName.setText('Video Conversion Complete')
+        self.statusBar.showMessage('Video Conversion Complete')
 
     def convertFile(self):
         self.process = FFMpeg(
