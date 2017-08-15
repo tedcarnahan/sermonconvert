@@ -1,10 +1,12 @@
 from PyQt5 import QtWidgets, QtCore
 from sermonconvert.qt.gen_MainWindow import Ui_MainWindow
 from sermonconvert.model.ffmpeg import FFMpeg
+from sermonconvert.util import timecode_to_secs, secs_to_timecode
 import os
 import sys
 import re
 import math
+import time
 
 class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -68,13 +70,20 @@ class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         cursor.insertText(text)
         self.outputWindow.ensureCursorVisible()
 
+        # Calculate ETA
+        elapsed = time.time() - self.clocktime_begin
+        if elapsed and self.process.percent:
+            remaining = (100 - self.process.percent) * (elapsed / self.process.percent)
+            self.operationName.setText('Converting video (about ' + secs_to_timecode(remaining) + ' remaining)')
+
     def startProcess(self):
+        self.clocktime_begin = time.time()
         self.convertButton.setEnabled(False)
         self.operationName.setText('Converting video')
 
     def endProcess(self):
         self.convertButton.setEnabled(True)
-        self.operationName.setText('')
+        self.operationName.setText('Video Conversion Complete')
 
     def convertFile(self):
         self.process = FFMpeg(
