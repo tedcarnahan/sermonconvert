@@ -68,6 +68,14 @@ class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         cursor.insertText(text)
         self.outputWindow.ensureCursorVisible()
 
+    def startProcess(self):
+        self.convertButton.setEnabled(False)
+        self.operationName.setText('Converting video')
+
+    def endProcess(self):
+        self.convertButton.setEnabled(True)
+        self.operationName.setText('')
+
     def convertFile(self):
         self.process = FFMpeg(
             input_file = self.filename,
@@ -75,9 +83,9 @@ class SCMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             start_time_tc = self.starttime(),
             duration_tc = self.duration(),
             )
-        self.process.started.connect( lambda: self.convertButton.setEnabled(False) )
+        self.process.started.connect( self.startProcess )
         self.process.incoming_data.connect( self.updateProgress )
-        self.process.finished.connect( lambda: self.convertButton.setEnabled(True) )
+        self.process.finished.connect( self.endProcess )
         self.process.convertFile()
 
 
